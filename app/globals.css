@@ -1,26 +1,183 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 255, 255, 255;
+  --primary-blue: #2187FF;
+  --primary-green: #4CAF50;
+  --primary-white: #FFFFFF;
+  --footer-bg: #1a1a1a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+[data-theme="dark"] {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 18, 18, 18;
+  --background-end-rgb: 30, 30, 30;
+  --primary-blue: #2187FF;
+  --primary-green: #45a049;
+  --primary-white: #1a1a1a;
+  --footer-bg: #0a0a0a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-green);
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Hero Section Continuous Sliding */
+@keyframes slideContinuous {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 2));
+  }
+}
+
+/* Smooth transitions for manual slider */
+.slide-transition {
+  transition: all 0.5s ease-in-out;
+}
+
+
+/* Ensure animations run smoothly */
+.sliding-row {
+  animation-duration: 25s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* About section sliding cards */
+@keyframes slideCards {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-250px * 8 - 24px * 8)); }
+}
+
+.sliding-cards {
+  animation: slideCards 60s linear infinite;
+}
+
+.sliding-cards:hover {
+  animation-play-state: paused;
+}
+
+.sliding-cards-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.sliding-cards-container::before,
+.sliding-cards-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+}
+
+.sliding-cards-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgb(228, 234, 248) 0%, rgba(255,255,255,0) 100%);
+}
+
+[data-theme="dark"] .sliding-cards-container::before {
+  background: linear-gradient(to right, rgba(18,18,18,1) 0%, rgba(18,18,18,0) 100%);
+}
+
+.sliding-cards-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+[data-theme="dark"] .sliding-cards-container::after {
+  background: linear-gradient(to left, rgba(18,18,18,1) 0%, rgba(18,18,18,0) 100%);
+}
+
+/* Services sliding grid */
+.services-grid-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.services-sliding-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+  animation: slideServices 80s linear infinite;
+}
+
+/* Services single row sliding */
+@keyframes slideServicesSingle {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-384px * 12 - 16px * 12)); }
+}
+
+.sliding-cards {
+  animation: slideServicesSingle 120s linear infinite;
+}
+
+.sliding-cards:hover {
+  animation-play-state: paused;
 }

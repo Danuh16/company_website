@@ -25,6 +25,8 @@ import { useTheme as useCustomTheme } from "@/contexts/ThemeContext";
 import { translations } from "@/lib/translations";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
+import Image from "next/image";
+import logo from "../public/logo.jpg";
 
 const Header = () => {
   const { language } = useCustomTheme();
@@ -61,13 +63,23 @@ const Header = () => {
   ];
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", p: 2 }}>
-      <Typography
-        variant="h6"
-        sx={{ my: 2, color: "#2192FF", fontWeight: "bold" }}
-      >
-        ARKI Environmental Services
-      </Typography>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", p: 10 }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, my: 2 }}>
+  <Image
+  src={logo}
+  alt="ARKI Logo"
+  width={200}
+  height={200}
+  style={{ 
+    width: "auto", 
+    height: { xs: "50px", sm: "60px", md: "70px" },
+    objectFit: "contain"
+  }}
+/>
+  <Typography variant="h6" sx={{ color: "#2192FF", fontWeight: "bold" }}>
+    ARKI Environmental Services
+  </Typography>
+</Box>
       <List>
         {menuItems.map((item) => (
           <ListItem key={item.label} disablePadding>
@@ -132,6 +144,23 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton>
+        )}
+
+        {/* Logo for desktop */}
+        {!isMobile && (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mr: 2 }}>
+            <Image
+              src={logo}
+              alt="ARKI Logo"
+              width={28}
+              height={28}
+              style={{ 
+                width: "auto", 
+                height: "28px",
+                objectFit: "contain"
+              }}
+            />
+          </Box>
         )}
 
         <Typography

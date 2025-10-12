@@ -64,6 +64,7 @@ const ContactSection = () => {
         background: `linear-gradient(135deg, ${alpha('#2192FF', 0.02)} 0%, ${alpha('#57CC99', 0.02)} 100%)`,
         position: 'relative',
         overflow: 'hidden',
+        
       }}
     >
       {/* Background Elements */}
@@ -114,7 +115,7 @@ const ContactSection = () => {
         </Box>
 
         {/* 2 Cards Side by Side - Equal Width */}
-        <Grid container spacing={4} sx={{ width: '100%', margin: 0 }}>
+        <Grid container spacing={4} sx={{ width: '100%', margin: 0,alignItems: 'center' }}>
           {/* Contact Form Card - Left Side */}
           <Grid item xs={12} md={6} sx={{ width: '50%' }}>
             <Card
@@ -271,7 +272,7 @@ const ContactSection = () => {
           </Grid>
           
           {/* Contact Information Card - Right Side */}
-          <Grid item xs={12} md={6} sx={{ width: '40%' }}>
+          <Grid item xs={12} md={6} sx={{ width: '47%' }}>
             <Card
               sx={{
                 height: '100%',
@@ -424,51 +425,6 @@ const ContactSection = () => {
                 Ready to discuss your environmental service needs? Contact us today and let's work together 
                 to create sustainable water management solutions for your business.
               </Typography>
-              <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Button
-                  variant="contained"
-                  size="large"
-                  sx={{
-                    backgroundColor: 'white',
-                    color: '#2192FF',
-                    fontWeight: 'bold',
-                    px: { xs: 4, sm: 5 },
-                    py: 1.5,
-                    fontSize: { xs: '0.9rem', sm: '1rem' },
-                    '&:hover': {
-                      backgroundColor: 'white',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 8px 25px rgba(255,255,255,0.3)',
-                    },
-                    transition: 'all 0.3s ease',
-                    borderRadius: 3,
-                  }}
-                >
-                  Schedule a Call
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="large"
-                  sx={{
-                    borderColor: 'white',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    px: { xs: 4, sm: 5 },
-                    py: 1.5,
-                    fontSize: { xs: '0.9rem', sm: '1rem' },
-                    '&:hover': {
-                      backgroundColor: 'white',
-                      color: '#2192FF',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 8px 25px rgba(255,255,255,0.2)',
-                    },
-                    transition: 'all 0.3s ease',
-                    borderRadius: 3,
-                  }}
-                >
-                  Request Quote
-                </Button>
-              </Box>
             </CardContent>
           </Card>
         </Box>

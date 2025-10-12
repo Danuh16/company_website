@@ -14,27 +14,27 @@ const HeroSection = () => {
   // Replace with your actual environmental service images
   const slides = [
     {
-      image: "/images/water-treatment.jpg",
+      image: "/public/water-treatment.jpg",
       alt: "Water Treatment Services",
     },
     {
-      image: "/images/tanker-cleaning.jpg",
+      image: "",
       alt: "Tanker Cleaning Services",
     },
     {
-      image: "/images/well-inspection.jpg",
+      image: "/public/well-inspection.jpg",
       alt: "Well Inspection Services",
     },
     {
-      image: "/images/water-quality.jpg",
+      image: "/public/water-quality.jpg",
       alt: "Water Quality Analysis",
     },
     {
-      image: "/images/drainage-system.jpg",
+      image: "/public/drainage-system.jpg",
       alt: "Drainage System Services",
     },
     {
-      image: "/images/water-management.jpg",
+      image: "/public/water-management.jpg",
       alt: "Water Management Solutions",
     },
   ];

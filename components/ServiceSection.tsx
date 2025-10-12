@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useState } from "react";
 import {
   Container,
   Typography,
@@ -9,211 +9,268 @@ import {
   CardContent,
   useTheme,
   Button,
-  IconButton,
-} from '@mui/material'
-import { ArrowForward as NextIcon, ArrowBack as PrevIcon } from '@mui/icons-material'
+  alpha,
+} from "@mui/material";
 import {
-  Code as WebIcon,
-  PhoneIphone as MobileIcon,
-  Cloud as CloudIcon,
-  Support as SupportIcon,
-  School as TrainingIcon,
-  BusinessCenter as ConsultingIcon,
-  Security as SecurityIcon,
-  Analytics as AnalyticsIcon,
-  Storage as StorageIcon,
-  Apps as AppsIcon,
-  DesignServices as DesignIcon,
-  Engineering as EngineeringIcon
-} from '@mui/icons-material'
-import { useTheme as useCustomTheme } from '@/contexts/ThemeContext'
-import { translations } from '@/lib/translations'
+  CleanHands as CleaningIcon,
+  Plumbing as WellIcon,
+  Science as QualityIcon,
+  LocalShipping as TankerIcon,
+  BusinessCenter as ManagementIcon,
+  Architecture as DrainageIcon,
+  AccountTree as WaterlineIcon,
+} from "@mui/icons-material";
+import { useTheme as useCustomTheme } from "@/contexts/ThemeContext";
+import { translations } from "@/lib/translations";
 
 const ServicesSection = () => {
-  const { language } = useCustomTheme()
-  const muiTheme = useTheme()
-  const t = translations[language]
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const sliderRef = useRef<HTMLDivElement>(null)
+  const { language } = useCustomTheme();
+  const muiTheme = useTheme();
+  const t = translations[language];
+  const slidingContainerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const services = [
     {
-      icon: <WebIcon sx={{ fontSize: 48 }} />,
-      title: 'Web Development',
-      description: 'Custom web applications built with modern technologies and best practices for optimal performance and user experience.',
+      icon: <CleaningIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
+      title: "Water Tanker Inspection, Cleaning and Curing",
+      description:
+        "Professional inspection, thorough cleaning, and effective curing services for water tankers to ensure water quality and safety standards.",
     },
     {
-      icon: <MobileIcon sx={{ fontSize: 48 }} />,
-      title: 'Mobile Apps',
-      description: 'Cross-platform mobile applications for iOS and Android with native-like performance and intuitive interfaces.',
+      icon: <WellIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
+      title: "Well Inspection, Cleaning and Curing",
+      description:
+        "Comprehensive well inspection, deep cleaning, and proper curing services to maintain well water quality and structural integrity.",
     },
     {
-      icon: <CloudIcon sx={{ fontSize: 48 }} />,
-      title: 'Cloud Solutions',
-      description: 'Scalable cloud infrastructure and deployment solutions tailored for businesses of all sizes and requirements.',
+      icon: <QualityIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
+      title: "Water Quality Inspection Service",
+      description:
+        "Advanced water quality testing and analysis services to ensure your water meets health and safety standards.",
     },
     {
-      icon: <ConsultingIcon sx={{ fontSize: 48 }} />,
-      title: 'Consulting',
-      description: 'Expert consulting services to help your business grow, optimize processes, and achieve strategic goals effectively.',
+      icon: <TankerIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
+      title: "Waterway and Tanker Research and Deployment",
+      description:
+        "Research-based solutions for waterway management and efficient tanker deployment strategies for optimal water distribution.",
     },
     {
-      icon: <SupportIcon sx={{ fontSize: 48 }} />,
-      title: '24/7 Support',
-      description: 'Round-the-clock technical support and maintenance services ensuring your systems run smoothly at all times.',
+      icon: <ManagementIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
+      title: "Management of Water Facilities",
+      description:
+        "Professional management services for water treatment plants, storage facilities, and distribution systems.",
     },
     {
-      icon: <TrainingIcon sx={{ fontSize: 48 }} />,
-      title: 'Training',
-      description: 'Comprehensive training programs designed to empower your team with the latest technologies and best practices.',
+      icon: <DrainageIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
+      title: "Drainage System Research and Building, Consulting Services",
+      description:
+        "Expert research, construction, and consulting services for efficient drainage system design and implementation.",
     },
     {
-      icon: <SecurityIcon sx={{ fontSize: 48 }} />,
-      title: 'Cyber Security',
-      description: 'Advanced security solutions to protect your digital assets and ensure data privacy compliance.',
+      icon: <WaterlineIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
+      title: "Clearing and Treating Waterline Inspection",
+      description:
+        "Comprehensive waterline inspection, clearing, and treatment services to maintain optimal flow and water quality.",
     },
-    {
-      icon: <AnalyticsIcon sx={{ fontSize: 48 }} />,
-      title: 'Data Analytics',
-      description: 'Transform your data into actionable insights with our advanced analytics and business intelligence solutions.',
-    },
-    {
-      icon: <StorageIcon sx={{ fontSize: 48 }} />,
-      title: 'Database Management',
-      description: 'Efficient database design, optimization, and management services for optimal performance.',
-    },
-    {
-      icon: <AppsIcon sx={{ fontSize: 48 }} />,
-      title: 'API Development',
-      description: 'Robust and scalable API solutions to connect your applications and services seamlessly.',
-    },
-    {
-      icon: <DesignIcon sx={{ fontSize: 48 }} />,
-      title: 'UI/UX Design',
-      description: 'Beautiful and intuitive user interface designs that enhance user experience and engagement.',
-    },
-    {
-      icon: <EngineeringIcon sx={{ fontSize: 48 }} />,
-      title: 'DevOps',
-      description: 'Streamlined development and deployment processes with continuous integration and delivery.',
-    },
-  ]
+  ];
 
-  // Auto slide every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % services.length)
-    }, 2000)
-    return () => clearInterval(interval)
-  }, [services.length])
+  // Duplicate services for seamless sliding
+  const slidingServices = [...services, ...services];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % services.length)
-  }
+  const handleDotClick = (index: number) => {
+    setCurrentIndex(index);
+  };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + services.length) % services.length)
-  }
+  // Pause animation on hover
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+  };
 
-  // Scroll to current slide
-  useEffect(() => {
-    if (sliderRef.current) {
-      const cardWidth = 380 + 16; // card width + gap
-      sliderRef.current.scrollTo({
-        left: currentSlide * cardWidth,
-        behavior: 'smooth'
-      })
-    }
-  }, [currentSlide])
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+  };
 
   return (
-    <Box id="services" sx={{ py: 10, backgroundColor: 'background.paper', width: '100%' }}>
-      <Container maxWidth="xl">
-        <Typography 
-          variant="h2" 
-          component="h2" 
-          textAlign="center" 
-          gutterBottom
-          sx={{ 
-            mb: 8,
-            color: '#2187FF',
-            fontWeight: 'bold',
-            fontSize: { xs: '2.5rem', md: '3.5rem' }
+    <Box
+      id="services"
+      sx={{
+        py: { xs: 6, sm: 8, md: 10 },
+        background: `linear-gradient(135deg, ${alpha(
+          "#2192FF",
+          0.03
+        )} 0%, ${alpha("#57CC99", 0.03)} 50%, ${alpha("#80ED99", 0.03)} 100%)`,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background Decoration */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: -100,
+          right: -100,
+          width: 300,
+          height: 300,
+          borderRadius: "50%",
+          background: `linear-gradient(135deg, ${alpha(
+            "#2192FF",
+            0.1
+          )} 0%, ${alpha("#57CC99", 0.1)} 100%)`,
+          filter: "blur(40px)",
+          zIndex: 0,
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: -100,
+          left: -100,
+          width: 400,
+          height: 400,
+          borderRadius: "50%",
+          background: `linear-gradient(135deg, ${alpha(
+            "#80ED99",
+            0.1
+          )} 0%, ${alpha("#57CC99", 0.1)} 100%)`,
+          filter: "blur(40px)",
+          zIndex: 0,
+        }}
+      />
+
+      <Container
+        maxWidth={false}
+        sx={{ position: "relative", zIndex: 1, px: { xs: 0, sm: 2, md: 3 } }}
+      >
+        {/* Header Section */}
+        <Box
+          sx={{
+            textAlign: "center",
+            mb: { xs: 6, sm: 8, md: 10 },
+            px: { xs: 2, sm: 3 },
           }}
         >
-          {t.servicesTitle}
-        </Typography>
-        
-        {/* Single Row Sliding Services with Auto-play */}
-        <Box sx={{ position: 'relative', mb: 4 }}>
-          {/* Sliding Cards Container */}
-          <Box
-            ref={sliderRef}
+          <Typography
+            variant="h2"
+            component="h2"
+            gutterBottom
             sx={{
-              display: 'flex',
-              gap: 4,
-              overflowX: 'hidden',
-              scrollBehavior: 'smooth',
-              pb: 2,
-              '&::-webkit-scrollbar': {
-                display: 'none',
-              },
-              scrollbarWidth: 'none',
+              fontWeight: "bold",
+              background: "linear-gradient(135deg, #2192FF, #57CC99)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem", lg: "3.5rem" },
+              mb: 2,
             }}
           >
-            {services.map((service, index) => (
+            {t.servicesTitle}
+          </Typography>
+          <Typography
+            variant="h6"
+            color="text.secondary"
+            sx={{
+              maxWidth: "600px",
+              margin: "0 auto",
+              fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
+              lineHeight: 1.6,
+            }}
+          >
+            Comprehensive environmental services tailored to meet your water
+            management needs with excellence and precision.
+          </Typography>
+        </Box>
+
+        {/* Sliding Services Container */}
+        <Box
+          sx={{
+            width: "100vw",
+            position: "relative",
+            left: "50%",
+            right: "50%",
+            marginLeft: "-50vw",
+            marginRight: "-50vw",
+            mb: 6,
+            overflow: "hidden",
+            py: 4,
+          }}
+        >
+          <Box
+            ref={slidingContainerRef}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            sx={{
+              display: "flex",
+              gap: { xs: 2, sm: 3, md: 4 },
+              animation: isPaused
+                ? "none"
+                : "slideServices 40s linear infinite",
+              width: "max-content",
+              px: { xs: 2, sm: 3, md: 4 },
+            }}
+          >
+            {slidingServices.map((service, index) => (
               <Card
                 key={index}
                 sx={{
-                  minWidth: 380,
-                  height: 280,
+                  minWidth: { xs: 260, sm: 280, md: 300, lg: 320 },
+                  height: { xs: 200, sm: 220, md: 240, lg: 250 },
                   flexShrink: 0,
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-8px) scale(1.02)',
-                    boxShadow: '0 20px 40px rgba(33, 135, 255, 0.2)',
-                    borderColor: '#2187FF',
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-8px) scale(1.05)",
+                    boxShadow: "0 20px 40px rgba(33, 146, 255, 0.2)",
                   },
-                  backgroundColor: 'background.default',
-                  border: '2px solid',
-                  borderColor: 'divider',
+                  backgroundColor: "background.paper",
+                  border: "2px solid",
+                  borderColor: "divider",
                   borderRadius: 3,
-                  textAlign: 'center',
-                  p: 4,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
+                  textAlign: "center",
+                  p: { xs: 2, sm: 3 },
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
                 }}
               >
-                <CardContent sx={{ p: '0 !important' }}>
+                <CardContent sx={{ p: "0 !important" }}>
                   <Box
                     sx={{
-                      color: '#2187FF',
-                      mb: 3,
-                      '& svg': {
-                        transition: 'all 0.3s ease',
+                      color: "#57CC99",
+                      mb: { xs: 1, sm: 2 },
+                      "& svg": {
+                        fontSize: { xs: 32, sm: 36, md: 40 },
+                        transition: "all 0.3s ease",
                       },
                     }}
                   >
                     {service.icon}
                   </Box>
-                  <Typography 
-                    variant="h5" 
-                    gutterBottom 
-                    sx={{ 
-                      fontWeight: 'bold',
-                      color: '#2187FF',
-                      mb: 2,
-                      fontSize: '1.4rem'
+                  <Typography
+                    variant="h5"
+                    gutterBottom
+                    sx={{
+                      fontWeight: "bold",
+                      color: "#2192FF",
+                      mb: 1,
+                      fontSize: {
+                        xs: "1rem",
+                        sm: "1.1rem",
+                        md: "1.2rem",
+                        lg: "1.3rem",
+                      },
                     }}
                   >
                     {service.title}
                   </Typography>
-                  <Typography 
-                    variant="body1" 
+                  <Typography
+                    variant="body2"
                     color="text.secondary"
-                    sx={{ lineHeight: 1.6, fontSize: '0.95rem' }}
+                    sx={{
+                      lineHeight: 1.5,
+                      fontSize: { xs: "0.75rem", sm: "0.8rem", md: "0.85rem" },
+                    }}
                   >
                     {service.description}
                   </Typography>
@@ -221,135 +278,160 @@ const ServicesSection = () => {
               </Card>
             ))}
           </Box>
-
-          {/* Navigation Controls - Like Hero Section */}
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 3,
-              mt: 4,
-            }}
-          >
-            <IconButton
-              onClick={prevSlide}
-              sx={{
-                backgroundColor: 'rgba(33, 135, 255, 0.9)',
-                color: 'white',
-                width: 50,
-                height: 50,
-                '&:hover': {
-                  backgroundColor: '#1a75e0',
-                  transform: 'scale(1.1)',
-                  boxShadow: '0 6px 20px rgba(33, 135, 255, 0.4)',
-                },
-                transition: 'all 0.3s ease',
-                boxShadow: '0 3px 15px rgba(33, 135, 255, 0.3)',
-              }}
-            >
-              <PrevIcon sx={{ fontSize: '1.8rem' }} />
-            </IconButton>
-
-            {/* Service Indicators - Dots Below Cards */}
-            <Box 
-              sx={{ 
-                display: 'flex', 
-                gap: 1.5,
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(10px)',
-                borderRadius: '50px',
-                padding: '8px 16px',
-              }}
-            >
-              {services.map((_, index) => (
-                <Box
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  sx={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: '50%',
-                    backgroundColor: currentSlide === index ? '#2187FF' : 'rgba(33, 135, 255, 0.4)',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      backgroundColor: '#2187FF',
-                      transform: 'scale(1.3)',
-                    },
-                  }}
-                />
-              ))}
-            </Box>
-
-            <IconButton
-              onClick={nextSlide}
-              sx={{
-                backgroundColor: 'rgba(33, 135, 255, 0.9)',
-                color: 'white',
-                width: 50,
-                height: 50,
-                '&:hover': {
-                  backgroundColor: '#1a75e0',
-                  transform: 'scale(1.1)',
-                  boxShadow: '0 6px 20px rgba(33, 135, 255, 0.4)',
-                },
-                transition: 'all 0.3s ease',
-                boxShadow: '0 3px 15px rgba(33, 135, 255, 0.3)',
-              }}
-            >
-              <NextIcon sx={{ fontSize: '1.8rem' }} />
-            </IconButton>
-          </Box>
         </Box>
 
-        {/* Additional Info Card */}
-        <Card
+        {/* Navigation Dots */}
+        <Box
           sx={{
-            transition: 'all 0.3s ease',
-            '&:hover': {
-              transform: 'translateY(-4px)',
-              boxShadow: '0 16px 32px rgba(0,0,0,0.15)',
-            },
-            backgroundColor: 'background.default',
-            border: '2px solid',
-            borderColor: 'divider',
-            borderRadius: 3,
-            p: 5,
-            textAlign: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            mb: 6,
+            gap: 1.5,
           }}
         >
-          <CardContent sx={{ p: '0 !important' }}>
-            <Typography 
-              variant="h4" 
-              gutterBottom 
-              sx={{ 
-                color: '#2187FF',
-                fontWeight: 'bold',
-                mb: 3
+          {services.map((_, index) => (
+            <Box
+              key={index}
+              onClick={() => handleDotClick(index)}
+              sx={{
+                width: { xs: 10, sm: 12 },
+                height: { xs: 10, sm: 12 },
+                borderRadius: "50%",
+                backgroundColor:
+                  currentIndex === index ? "#2192FF" : alpha("#2192FF", 0.3),
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  backgroundColor:
+                    currentIndex === index ? "#2192FF" : alpha("#2192FF", 0.6),
+                  transform: "scale(1.3)",
+                },
               }}
-            >
-              Ready to Transform Your Business?
-            </Typography>
-            <Typography 
-              variant="h6" 
-              color="text.secondary" 
-              sx={{ 
-                lineHeight: 1.7,
-                mb: 4,
-                maxWidth: '800px',
-                margin: '0 auto'
-              }}
-            >
-              Our comprehensive suite of services is designed to meet all your digital needs. 
-              From cutting-edge web development to robust cloud solutions, we have the expertise 
-              to take your business to the next level.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Container>
-    </Box>
-  )
-}
+            />
+          ))}
+        </Box>
 
-export default ServicesSection
+        {/* CTA Section */}
+        <Box
+          sx={{
+            background: "linear-gradient(135deg, #2192FF, #57CC99)",
+            borderRadius: 4,
+            p: { xs: 4, sm: 6, md: 8 },
+            textAlign: "center",
+            color: "white",
+            position: "relative",
+            overflow: "hidden",
+            mx: { xs: 2, sm: 3 },
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: -50,
+              right: -50,
+              width: 200,
+              height: 200,
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.1)",
+              filter: "blur(20px)",
+            }}
+          />
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{
+              fontWeight: "bold",
+              mb: 3,
+              fontSize: { xs: "1.8rem", sm: "2.2rem", md: "2.5rem" },
+              position: "relative",
+              zIndex: 1,
+            }}
+          >
+            Ready to Get Started?
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              mb: 4,
+              opacity: 0.9,
+              fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
+              position: "relative",
+              zIndex: 1,
+            }}
+          >
+            Contact us today for professional environmental services and water
+            management solutions.
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 3,
+              justifyContent: "center",
+              flexWrap: "wrap",
+              position: "relative",
+              zIndex: 1,
+            }}
+          >
+            <Button
+              variant="contained"
+              size="large"
+              sx={{
+                backgroundColor: "white",
+                color: "#2192FF",
+                fontWeight: "bold",
+                px: { xs: 4, sm: 5 },
+                py: 1.5,
+                fontSize: { xs: "0.9rem", sm: "1rem" },
+                "&:hover": {
+                  backgroundColor: "white",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(255,255,255,0.3)",
+                },
+                transition: "all 0.3s ease",
+                borderRadius: 3,
+              }}
+            >
+              Request Inspection
+            </Button>
+            <Button
+              variant="outlined"
+              size="large"
+              sx={{
+                borderColor: "white",
+                color: "white",
+                fontWeight: "bold",
+                px: { xs: 4, sm: 5 },
+                py: 1.5,
+                fontSize: { xs: "0.9rem", sm: "1rem" },
+                "&:hover": {
+                  backgroundColor: "white",
+                  color: "#2192FF",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(255,255,255,0.2)",
+                },
+                transition: "all 0.3s ease",
+                borderRadius: 3,
+              }}
+            >
+              Get Consultation
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+
+      <style jsx global>{`
+        @keyframes slideServices {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-100% / 2));
+          }
+        }
+      `}</style>
+    </Box>
+  );
+};
+
+export default ServicesSection;

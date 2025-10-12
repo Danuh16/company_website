@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -13,49 +13,60 @@ import {
   ListItem,
   useTheme,
   useMediaQuery,
-} from '@mui/material'
-import { 
+} from "@mui/material";
+import {
   Menu as MenuIcon,
   Home as HomeIcon,
   Info as AboutIcon,
   BusinessCenter as ServicesIcon,
-  ContactMail as ContactIcon
-} from '@mui/icons-material'
-import { useTheme as useCustomTheme } from '@/contexts/ThemeContext'
-import { translations } from '@/lib/translations'
-import LanguageSwitcher from './LanguageSwitcher'
-import ThemeSwitcher from './ThemeSwitcher'
+  ContactMail as ContactIcon,
+} from "@mui/icons-material";
+import { useTheme as useCustomTheme } from "@/contexts/ThemeContext";
+import { translations } from "@/lib/translations";
+import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const Header = () => {
-  const { language } = useCustomTheme()
-  const t = translations[language]
-  const muiTheme = useTheme()
-  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'))
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const { language } = useCustomTheme();
+  const t = translations[language];
+  const muiTheme = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen)
-  }
+    setMobileOpen(!mobileOpen);
+  };
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+    const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-    setMobileOpen(false)
-  }
+    setMobileOpen(false);
+  };
 
   const menuItems = [
-    { label: t.home, section: 'home', icon: <HomeIcon sx={{ mr: 1 }} /> },
-    { label: t.about, section: 'about', icon: <AboutIcon sx={{ mr: 1 }} /> },
-    { label: t.services, section: 'services', icon: <ServicesIcon sx={{ mr: 1 }} /> },
-    { label: t.contact, section: 'contact', icon: <ContactIcon sx={{ mr: 1 }} /> },
-  ]
+    { label: t.home, section: "home", icon: <HomeIcon sx={{ mr: 1 }} /> },
+    { label: t.about, section: "about", icon: <AboutIcon sx={{ mr: 1 }} /> },
+    {
+      label: t.services,
+      section: "services",
+      icon: <ServicesIcon sx={{ mr: 1 }} />,
+    },
+    {
+      label: t.contact,
+      section: "contact",
+      icon: <ContactIcon sx={{ mr: 1 }} />,
+    },
+  ];
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', p: 2 }}>
-      <Typography variant="h6" sx={{ my: 2, color: '#2187FF' }}>
-        Company Logo
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", p: 2 }}>
+      <Typography
+        variant="h6"
+        sx={{ my: 2, color: "#2192FF", fontWeight: "bold" }}
+      >
+        ARKI Environmental Services
       </Typography>
       <List>
         {menuItems.map((item) => (
@@ -65,15 +76,15 @@ const Header = () => {
               color="inherit"
               startIcon={item.icon}
               onClick={() => scrollToSection(item.section)}
-              sx={{ 
-                justifyContent: 'flex-start', 
+              sx={{
+                justifyContent: "flex-start",
                 px: 3,
                 py: 1.5,
-                color: 'text.primary',
-                '&:hover': {
-                  backgroundColor: '#2187FF',
-                  color: 'white',
-                }
+                color: "text.primary",
+                "&:hover": {
+                  backgroundColor: "#57CC99",
+                  color: "white",
+                },
               }}
             >
               {item.label}
@@ -81,15 +92,15 @@ const Header = () => {
           </ListItem>
         ))}
         <ListItem>
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             fullWidth
-            sx={{ 
+            sx={{
               mt: 2,
-              backgroundColor: '#2187FF',
-              '&:hover': {
-                backgroundColor: '#1a75e0',
-              }
+              backgroundColor: "#57CC99",
+              "&:hover": {
+                backgroundColor: "#4aba87",
+              },
             }}
           >
             {t.login}
@@ -97,17 +108,17 @@ const Header = () => {
         </ListItem>
       </List>
     </Box>
-  )
+  );
 
   return (
-    <AppBar 
+    <AppBar
       position="sticky"
-      sx={{ 
-        backgroundColor: 'background.paper',
-        color: 'text.primary',
-        boxShadow: '0 2px 20px rgba(0,0,0,0.1)',
-        borderBottom: '1px solid',
-        borderColor: 'divider',
+      sx={{
+        backgroundColor: "background.paper",
+        color: "text.primary",
+        boxShadow: "0 2px 20px rgba(0,0,0,0.1)",
+        borderBottom: "1px solid",
+        borderColor: "divider",
       }}
     >
       <Toolbar>
@@ -122,28 +133,28 @@ const Header = () => {
             <MenuIcon />
           </IconButton>
         )}
-        
+
         <Typography
           variant="h6"
           component="div"
           sx={{
             flexGrow: isMobile ? 1 : 0,
-            color: '#2187FF',
-            fontWeight: 'bold',
-            fontSize: '1.5rem',
-            cursor: 'pointer',
+            color: "#2192FF",
+            fontWeight: "bold",
+            fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.5rem" },
+            cursor: "pointer",
           }}
-          onClick={() => scrollToSection('home')}
+          onClick={() => scrollToSection("home")}
         >
-          Company Logo
+          ARKI Environmental Services
         </Typography>
 
         {!isMobile && (
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              flexGrow: 1, 
-              justifyContent: 'center',
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 1,
+              justifyContent: "center",
               gap: 1,
             }}
           >
@@ -153,17 +164,18 @@ const Header = () => {
                 color="inherit"
                 startIcon={item.icon}
                 onClick={() => scrollToSection(item.section)}
-                sx={{ 
-                  color: 'text.primary',
-                  '&:hover': {
-                    backgroundColor: '#2187FF',
-                    color: 'white',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 12px rgba(33, 135, 255, 0.3)',
+                sx={{
+                  color: "text.primary",
+                  "&:hover": {
+                    backgroundColor: "#57CC99",
+                    color: "white",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 4px 12px rgba(87, 204, 153, 0.3)",
                   },
-                  transition: 'all 0.3s ease',
+                  transition: "all 0.3s ease",
                   mx: 0.5,
                   borderRadius: 2,
+                  fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" },
                 }}
               >
                 {item.label}
@@ -172,22 +184,23 @@ const Header = () => {
           </Box>
         )}
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <LanguageSwitcher />
           <ThemeSwitcher />
           {!isMobile && (
-            <Button 
+            <Button
               variant="contained"
-              sx={{ 
-                backgroundColor: '#2187FF',
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: '#1a75e0',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 12px rgba(33, 135, 255, 0.3)',
+              sx={{
+                backgroundColor: "#57CC99",
+                color: "white",
+                "&:hover": {
+                  backgroundColor: "#4aba87",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 4px 12px rgba(87, 204, 153, 0.3)",
                 },
-                transition: 'all 0.3s ease',
+                transition: "all 0.3s ease",
                 borderRadius: 2,
+                fontSize: { xs: "0.8rem", sm: "0.9rem" },
               }}
             >
               {t.login}
@@ -204,18 +217,18 @@ const Header = () => {
           keepMounted: true,
         }}
         sx={{
-          display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': { 
-            boxSizing: 'border-box', 
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
             width: 280,
-            backgroundColor: 'background.paper',
+            backgroundColor: "background.paper",
           },
         }}
       >
         {drawer}
       </Drawer>
     </AppBar>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

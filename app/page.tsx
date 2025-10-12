@@ -16,7 +16,7 @@ function HomePage() {
       sx={{
         minHeight: '100vh',
         background: (theme) => theme.palette.mode === 'light' 
-          ? 'linear-gradient(135deg, #87CEEB20, #4CAF5020)'
+          ? 'linear-gradient(135deg, rgba(34, 87, 122, 0.05), rgba(56, 163, 165, 0.05))'
           : 'linear-gradient(135deg, #1a1a1a, #2d2d2d)',
       }}
     >

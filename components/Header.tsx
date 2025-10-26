@@ -63,23 +63,33 @@ const Header = () => {
   ];
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", p: 10 }}>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1, my: 2 }}>
-  <Image
-  src={logo}
-  alt="ARKI Logo"
-  width={200}
-  height={200}
-  style={{ 
-    width: "auto", 
-    height: { xs: "50px", sm: "60px", md: "70px" },
-    objectFit: "contain"
-  }}
-/>
-  <Typography variant="h6" sx={{ color: "#2192FF", fontWeight: "bold" }}>
-    ARKI Environmental Services
-  </Typography>
-</Box>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", p: 2 }}>
+      <Box 
+        sx={{ 
+          display: "flex", 
+          alignItems: "center", 
+          justifyContent: "center",
+          gap: 1, 
+          my: 2,
+          flexDirection: "column"
+        }}
+      >
+        <Image
+          src={logo}
+          alt="ARKI Logo"
+          width={80}
+          height={80}
+          style={{
+            width: "80px",
+            height: "80px",
+            objectFit: "contain",
+            padding: "5px",
+          }}
+        />
+        <Typography variant="h6" sx={{ color: "#2192FF", fontWeight: "bold", textAlign: "center" }}>
+          ARKI Environmental Services
+        </Typography>
+      </Box>
       <List>
         {menuItems.map((item) => (
           <ListItem key={item.label} disablePadding>
@@ -103,7 +113,7 @@ const Header = () => {
             </Button>
           </ListItem>
         ))}
-        <ListItem>
+        {/* <ListItem>
           <Button
             variant="contained"
             fullWidth
@@ -117,7 +127,7 @@ const Header = () => {
           >
             {t.login}
           </Button>
-        </ListItem>
+        </ListItem> */}
       </List>
     </Box>
   );
@@ -133,7 +143,7 @@ const Header = () => {
         borderColor: "divider",
       }}
     >
-      <Toolbar>
+      <Toolbar sx={{ justifyContent: "space-between" }}>
         {isMobile && (
           <IconButton
             color="inherit"
@@ -152,12 +162,12 @@ const Header = () => {
             <Image
               src={logo}
               alt="ARKI Logo"
-              width={28}
-              height={28}
-              style={{ 
-                width: "auto", 
-                height: "28px",
-                objectFit: "contain"
+              width={40}
+              height={40}
+              style={{
+                width: "40px",
+                height: "40px",
+                objectFit: "contain",
               }}
             />
           </Box>
@@ -170,8 +180,9 @@ const Header = () => {
             flexGrow: isMobile ? 1 : 0,
             color: "#2192FF",
             fontWeight: "bold",
-            fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.5rem" },
+            fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.5rem" },
             cursor: "pointer",
+            textAlign: isMobile ? "center" : "left",
           }}
           onClick={() => scrollToSection("home")}
         >
@@ -184,6 +195,7 @@ const Header = () => {
               display: "flex",
               flexGrow: 1,
               justifyContent: "center",
+              alignItems: "center",
               gap: 1,
             }}
           >
@@ -216,7 +228,7 @@ const Header = () => {
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <LanguageSwitcher />
           <ThemeSwitcher />
-          {!isMobile && (
+          {/* {!isMobile && (
             <Button
               variant="contained"
               sx={{
@@ -234,7 +246,7 @@ const Header = () => {
             >
               {t.login}
             </Button>
-          )}
+          )} */}
         </Box>
       </Toolbar>
 

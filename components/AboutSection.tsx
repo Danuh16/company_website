@@ -126,7 +126,7 @@ const AboutSection = () => {
           gutterBottom
           sx={{
             mb: { xs: 4, sm: 6, md: 8 },
-            color: "#2192FF",
+            color: "#108cffff",
             fontWeight: "bold",
             fontSize: {
               xs: "1.8rem",
@@ -140,34 +140,52 @@ const AboutSection = () => {
         </Typography>
 
         {/* Static About Cards - One Row */}
-        <Grid container spacing={3} sx={{ mb: { xs: 6, sm: 8, md: 10 } }}>
+        <Grid 
+          container 
+          spacing={3} 
+          sx={{ 
+            mb: { xs: 6, sm: 8, md: 10 },
+            justifyContent: "center"
+          }}
+        >
           {aboutCards.map((card, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Grid 
+              item 
+              xs={12} 
+              sm={6} 
+              md={3} 
+              key={index}
+              sx={{
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
               <Card
                 sx={{
-                  width: { xs: 280, sm: 300, md: 442 }, // Static width
+                  width: { xs: 280, sm: 300, md: 460 }, // Static width
                   height: { xs: 320, sm: 340, md: 360 }, // Increased height for text wrapping
                   transition: "all 0.3s ease",
                   "&:hover": {
                     transform: "translateY(-8px)",
-                    boxShadow: "0 20px 40px rgba(33, 146, 255, 0.2)",
+                    boxShadow: "0 25px 50px rgba(33, 146, 255, 0.3)", // Increased shadow
                   },
                   backgroundColor: "background.paper",
                   border: "2px solid",
                   borderColor: "divider",
-                  borderRadius: 3,
+                  borderRadius: 4, // Increased roundness
                   textAlign: "center",
-                  p: { xs: 2, sm: 3 },
+                  p: { xs: 2, sm: 5 },
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   flexShrink: 0, // Prevent width from changing
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.12)", // Added base shadow
                 }}
               >
                 <CardContent sx={{ p: "0 !important" }}>
                   <Box
                     sx={{
-                      color: "#57CC99",
+                      color: "#48e476ff",
                       mb: { xs: 2, sm: 2.5 },
                       "& svg": {
                         fontSize: { xs: 36, sm: 40, md: 44 },
@@ -181,7 +199,7 @@ const AboutSection = () => {
                     gutterBottom
                     sx={{
                       fontWeight: "bold",
-                      color: "#2192FF",
+                      color: "#108cffff",
                       mb: 2,
                       fontSize: {
                         xs: "1.1rem",
@@ -259,7 +277,7 @@ const AboutSection = () => {
                 variant="h3"
                 gutterBottom
                 sx={{
-                  color: "#2192FF",
+                  color: "#108cffff",
                   fontWeight: "bold",
                   mb: 4,
                   fontSize: {
@@ -280,7 +298,7 @@ const AboutSection = () => {
                   fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
                 }}
               >
-                "Arki Environmental Services is an Ethiopian-owned environmental
+                Arki Environmental Services is an Ethiopian-owned environmental
                 solutions company specializing in water storage and conveyance
                 systems, and water well inspection, cleaning, maintenance, and
                 disinfection services. Established to address the growing need
@@ -309,9 +327,9 @@ const AboutSection = () => {
             border: "2px solid",
             borderColor: "divider",
             borderRadius: 3,
-            p: { xs: 3, sm: 4, md: 5 },
+            p: { xs: 3, sm: 4, md: 8 },
             width: "100%",
-            maxWidth: "1400px",
+            maxWidth: "1600px",
             margin: "0 auto",
           }}
         >
@@ -321,7 +339,7 @@ const AboutSection = () => {
               textAlign="center"
               gutterBottom
               sx={{
-                color: "#2192FF",
+                color: "#108cffff",
                 fontWeight: "bold",
                 mb: 6,
                 fontSize: {
@@ -344,7 +362,7 @@ const AboutSection = () => {
                       transition: "all 0.3s ease",
                       "&:hover": {
                         transform: "translateY(-4px)",
-                        backgroundColor: alpha("#2192FF", 0.02),
+                        backgroundColor: alpha("#108cffff", 0.02),
                       },
                       border: "1px solid",
                       borderColor: "divider",
@@ -370,7 +388,7 @@ const AboutSection = () => {
                           variant="h6"
                           sx={{
                             fontWeight: "bold",
-                            color: "#2192FF",
+                            color: "#108cffff",
                             fontSize: {
                               xs: "0.9rem",
                               sm: "1rem",
@@ -407,17 +425,17 @@ const AboutSection = () => {
               sx={{
                 mt: 4,
                 p: 3,
-                backgroundColor: alpha("#57CC99", 0.08),
+                backgroundColor: alpha("#48e476ff", 0.08),
                 borderRadius: 2,
                 border: "1px solid",
-                borderColor: alpha("#57CC99", 0.2),
+                borderColor: alpha("#48e476ff", 0.2),
               }}
             >
               <Typography
                 variant="h6"
                 textAlign="center"
                 sx={{
-                  color: "#2192FF",
+                  color: "#108cffff",
                   fontWeight: "bold",
                   mb: 2,
                 }}

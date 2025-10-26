@@ -14,27 +14,27 @@ const HeroSection = () => {
   // Replace with your actual environmental service images
   const slides = [
     {
-      image: "/public/water-treatment.jpg",
+      image: "/waterTreatment.jpg", // Remove "public" from path
       alt: "Water Treatment Services",
     },
     {
-      image: "",
+      image: "/tanker-cleaning.jpg", // Remove "public" from path
       alt: "Tanker Cleaning Services",
     },
     {
-      image: "/public/well-inspection.jpg",
+      image: "/well-inspection.jpg", // Remove "public" from path
       alt: "Well Inspection Services",
     },
     {
-      image: "/public/water-quality.jpg",
+      image: "/water-quality.jpg", // Remove "public" from path
       alt: "Water Quality Analysis",
     },
     {
-      image: "/public/drainage-system.jpg",
+      image: "/drainage-system.jpg", // Remove "public" from path
       alt: "Drainage System Services",
     },
     {
-      image: "/public/water-management.jpg",
+      image: "/water-management.jpg", // Remove "public" from path
       alt: "Water Management Solutions",
     },
   ];
@@ -43,9 +43,13 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [slides.length]);
+
+  const handleDotClick = (index: number) => {
+    setCurrentSlide(index);
+  };
 
   return (
     <Box
@@ -88,7 +92,6 @@ const HeroSection = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            opacity: 0.4,
             transition: "all 0.5s ease-in-out",
           }}
         >
@@ -120,26 +123,26 @@ const HeroSection = () => {
         <Box
           sx={{
             position: "absolute",
-            bottom: "20px",
+            bottom: { xs: "15px", sm: "20px", md: "25px" },
             left: "50%",
             transform: "translateX(-50%)",
             display: "flex",
             alignItems: "center",
-            gap: 1.5,
+            gap: { xs: 1, sm: 1.5, md: 2 },
             zIndex: 5,
             backgroundColor: "rgba(255, 255, 255, 0.1)",
             backdropFilter: "blur(10px)",
             borderRadius: "50px",
-            padding: "6px 12px",
+            padding: { xs: "5px 10px", sm: "6px 12px", md: "8px 16px" },
           }}
         >
           {slides.map((_, index) => (
             <Box
               key={index}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => handleDotClick(index)}
               sx={{
-                width: 8,
-                height: 8,
+                width: { xs: 10, sm: 12, md: 14 },
+                height: { xs: 10, sm: 12, md: 14 },
                 borderRadius: "50%",
                 backgroundColor:
                   currentSlide === index
@@ -148,7 +151,7 @@ const HeroSection = () => {
                 cursor: "pointer",
                 transition: "all 0.3s ease",
                 "&:hover": {
-                  backgroundColor: "#80ED99",
+                  backgroundColor: "#48e476ff",
                   transform: "scale(1.3)",
                 },
               }}
@@ -166,9 +169,8 @@ const HeroSection = () => {
           fontWeight="bold"
           sx={{
             fontSize: { xs: "2rem", sm: "3rem", md: "4rem", lg: "4.5rem" },
-            color: "#2192FF",
+            color: "#48e476ff",
             mb: 3,
-            textShadow: "2px 2px 8px rgba(255,255,255,0.8)",
           }}
         >
           ARKI Environmental Services
@@ -179,10 +181,9 @@ const HeroSection = () => {
           gutterBottom
           sx={{
             mb: 4,
-            color: "#57CC99",
+            color: "#108cffff",
             fontSize: { xs: "1.1rem", sm: "1.4rem", md: "1.8rem", lg: "2rem" },
             fontWeight: 600,
-            textShadow: "1px 1px 4px rgba(255,255,255,0.6)",
           }}
         >
           Professional Water Management Solutions

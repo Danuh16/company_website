@@ -117,7 +117,7 @@ const ContactSection = () => {
         {/* 2 Cards Side by Side - Equal Width */}
         <Grid container spacing={4} sx={{ width: '100%', margin: 0,alignItems: 'center' }}>
           {/* Contact Form Card - Left Side */}
-          <Grid item xs={12} md={6} sx={{ width: '50%' }}>
+          <Grid item xs={12} md={6} sx={{ width: '50%', height: '80vh' }}>
             <Card
               sx={{
                 height: '100%',

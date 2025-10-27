@@ -410,7 +410,7 @@ const ContactSection = () => {
                   fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
                 }}
               >
-                Let's Start Your Project
+                Let&apos;s Start Your Project
               </Typography>
               <Typography 
                 variant="h6" 
@@ -422,7 +422,7 @@ const ContactSection = () => {
                   margin: '0 auto',
                 }}
               >
-                Ready to discuss your environmental service needs? Contact us today and let's work together 
+                Ready to discuss your environmental service needs? Contact us today and let&apos;s work together 
                 to create sustainable water management solutions for your business.
               </Typography>
             </CardContent>

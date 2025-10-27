@@ -43,7 +43,7 @@ const AboutSection = () => {
       icon: <VisionIcon sx={{ fontSize: { xs: 36, sm: 40, md: 44 } }} />,
       title: "Our Vision",
       description:
-        "To become Ethiopia's most trusted and innovative environmental services provider.",
+        "To become Ethiopia&apos;s most trusted and innovative environmental services provider.",
     },
     {
       icon: <GrowthIcon sx={{ fontSize: { xs: 36, sm: 40, md: 44 } }} />,
